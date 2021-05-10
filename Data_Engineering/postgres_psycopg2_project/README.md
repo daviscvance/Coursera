@@ -10,67 +10,67 @@ This pipeline processes JSON song files and log data to provide a holistic view 
 
 Records in log data associated with song plays (records with page NextSong).
 
-| column      | type      | Primary keys |
-|-------------|-----------|--------------|
-| songplay_id | Serial    | *            |
-| start_time  | TIMESTAMP |              |
-| user_id     | INT       |              |
-| level       | VARCHAR   |              |
-| song_id     | VARCHAR   |              |
-| artist_id   | VARCHAR   |              |
-| session_id  | INT       |              |
-| location    | VARCHAR   |              |
-| user_agent  | VARCHAR   |              |
+| Column      | Type      | Table keys |
+|-------------|-----------|------------|
+| songplay_id | Serial    | Primary    |
+| start_time  | TIMESTAMP | Foreign    |
+| user_id     | INT       | Foreign    |
+| level       | VARCHAR   |            |
+| song_id     | VARCHAR   | Foreign    |
+| artist_id   | VARCHAR   | Foreign    |
+| session_id  | INT       | Foreign    |
+| location    | VARCHAR   |            |
+| user_agent  | VARCHAR   |            |
 
 ### Users
 
 Users in the app.
 
-| column     | type    | Primary keys |
-|------------|---------|--------------|
-| user_id    | INT     | *            |
-| first_name | VARCHAR |              |
-| last_name  | VARCHAR |              |
-| gender     | VARCHAR |              |
-| level      | VARCHAR |              |
+| Column     | Type    | Table keys | 
+|------------|---------|------------|
+| user_id    | INT     | Primary    |
+| first_name | VARCHAR |            |
+| last_name  | VARCHAR |            |
+| gender     | VARCHAR |            |
+| level      | VARCHAR |            |
 
 #### Songs
 
 Songs in the music database.
 
-| column     | type    | Primary keys |
-|------------|---------|--------------|
-| song_id    | VARCHAR | *            |
-| title      | VARCHAR |              |
-| artist_id  | VARCHAR |              |
-| year       | VARCHAR |              |
-| duration   | FLOAT   |              |         
+| Column     | Type    | Table keys |
+|------------|---------|------------|
+| song_id    | VARCHAR | Primary    |
+| title      | VARCHAR |            |
+| artist_id  | VARCHAR | Foreign    |
+| year       | VARCHAR |            |
+| duration   | FLOAT   |            |         
 
 # Artists
 
 Artists in music database.
 
-| column     | type    | Primary keys |
-|------------|---------|--------------|
-| artist_id  | VARCHAR | *            |
-| name       | VARCHAR |              |
-| location   | VARCHAR |              |
-| latitud    | FLOAT   |              |
-| longitude  | FLOAT   |              |
+| Column     | Type    | Table keys |
+|------------|---------|------------|
+| artist_id  | VARCHAR | Primary    |
+| name       | VARCHAR |            |
+| location   | VARCHAR |            |
+| latitude   | FLOAT   |            |
+| longitude  | FLOAT   |            |
 
 # Time
 
 Timestamps of records in songplays broken down into specific units.
 
-| column     | type      | Primary keys |
-|------------|-----------|--------------|
-| start_time | TIMESTAMP | *            |
-| hour       | INT       |              |
-| day        | INT       |              |
-| week       | INT       |              |
-| month      | INT       |              |
-| year       | INT       |              |
-| weekday    | INT       |              |
+| Column     | Type      | Table keys |
+|------------|-----------|------------|
+| start_time | TIMESTAMP | Primary    |
+| hour       | INT       |            |
+| day        | INT       |            |
+| week       | INT       |            |
+| month      | INT       |            |
+| year       | INT       |            |
+| weekday    | INT       |            |
 
 ## ETL
 
