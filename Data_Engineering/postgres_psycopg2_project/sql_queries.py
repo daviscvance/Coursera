@@ -34,12 +34,14 @@ user_table_create = ("""
     );
 """)
 
-# Songs in music database.
+# Songs in music database. 
+# Wanted to add "REFERENCES artists (artist_id)" here but it does not exist in 
+# artist table and throws error.
 song_table_create = ("""
     CREATE TABLE IF NOT EXISTS songs (
         song_id   VARCHAR  PRIMARY KEY,
         title     VARCHAR,
-        artist_id VARCHAR  NOT NULL REFERENCES artists (artist_id),
+        artist_id VARCHAR  NOT NULL,
         year      INT,
         duration  FLOAT
     );
@@ -152,8 +154,8 @@ song_select = ("""
 
 # QUERY LISTS ##################################################################
 
-create_table_queries = [songplay_table_create, user_table_create, 
-                        song_table_create, artist_table_create, 
+create_table_queries = [songplay_table_create, artist_table_create, 
+                        song_table_create, user_table_create,
                         time_table_create]
 drop_table_queries = [songplay_table_drop, user_table_drop, song_table_drop, 
                       artist_table_drop, time_table_drop]

@@ -59,23 +59,19 @@ def process_log_file(cur, filepath):
     ]
     column_labels = ['timestamp', 'hour', 'day', 'week', 'month', 'year', 'weekday']
     time_df = pd.DataFrame(dict(zip(column_labels, time_data)))
-#     time_insert = list(time_df.to_records(index=False))
     time_insert = [list(row) for row in time_df.itertuples(index=False)]
     cur.executemany(time_table_insert, time_insert)
 
-    # load user table
+    # Load and insert all users to table.
     user_df = df[['userId', 'firstName', 'lastName', 'gender', 'level']].drop_duplicates()
-    
-    # insert user records
-    for i, row in user_df.iterrows():
-        user_id, first_name, last_name, gender, level = row.userId, row.firstName, row.lastName, row.gender, row.level
-        cur.execute(user_table_insert, row)
+    user_insert = [list(row) for row in user_df.itertuples(index=False)]
+    cur.executemany(user_table_insert, user_insert)
 
-    # insert songplay records
+    # Insert songplay records.
     columns = ['start_time', 'userId', 'level', 'sessionId', 'location', 'userAgent', 'song', 'artist', 'length']
     for index, row in df[columns].iterrows():
         
-        # get songid and artistid from song and artist tables
+        # Get song_id and artist_id from song and artist tables.
         print(f"Querying song: {row.song}, by artist: {row.artist}", end = "\r", flush=True)
         cur.execute(song_select, (row.song, row.artist))
         results = cur.fetchone()
@@ -85,7 +81,7 @@ def process_log_file(cur, filepath):
         else:
             song_id, artist_id = None, None
 
-        # insert songplay record
+        # Insert songplay record.
         songplay_data = (row.start_time, row.userId, row.level, song_id, artist_id, 
                          row.sessionId, row.location, row.userAgent)
         
@@ -104,18 +100,18 @@ def process_data(cur, conn, filepath, func):
     Returns:
         None
     """
-    # get all files matching extension from directory
+    # Get all files matching extension from directory.
     all_files = []
     for root, dirs, files in os.walk(filepath):
         files = glob.glob(os.path.join(root,'*.json'))
         for f in files :
             all_files.append(os.path.abspath(f))
 
-    # get total number of files found
+    # Get total number of files found.
     num_files = len(all_files)
     print('{} files found in {}'.format(num_files, filepath))
 
-    # iterate over files and process
+    # Iterate over files and process.
     for i, datafile in enumerate(all_files, 1):
         if 'checkpoint' in datafile:
             print(f'Not processing: {datafile}.')
