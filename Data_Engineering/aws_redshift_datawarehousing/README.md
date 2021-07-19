@@ -11,17 +11,17 @@ I was tasked with building an ETL pipeline that extracts their data from Amazon 
 
 `songplays`: records in event data associated with song plays i.e. records with page NextSong.
 
-field         | type              |   
-------------- | ----------------- | ---
-songplay_id   | INT IDENTITY(0,1) | PRIMARY KEY
-start_time    | TIMESTAMP         | FOREIGN KEY
-user_id       | INTEGER           | FOREIGN KEY
-song_id       | VARCHAR           | FOREIGN KEY
-artist_id     | VARCHAR           | FOREIGN KEY
-session_id    | BIGINT            |
-user_level    | VARCHAR           |
-user_location | VARCHAR           |
-user_agent    | TEXT              |
+| field         | type              | key         |
+| ------------- | ----------------- | ----------- |
+| songplay_id   | INT IDENTITY(0,1) | PRIMARY KEY |
+| start_time    | TIMESTAMP         | FOREIGN KEY |
+| user_id       | INTEGER           | FOREIGN KEY |
+| song_id       | VARCHAR           | FOREIGN KEY |
+| artist_id     | VARCHAR           | FOREIGN KEY |
+| session_id    | BIGINT            |             |
+| user_level    | VARCHAR           |             |
+| user_location | VARCHAR           |             |
+| user_agent    | TEXT              |             |
 
 NOTE: IDENTITY is the equivalent to SERIAL in Redshift.
 
@@ -29,47 +29,47 @@ NOTE: IDENTITY is the equivalent to SERIAL in Redshift.
 
 `users`: Sparkify users' metadata.
 
-field       | type    |   
------------ | ------- | ---
-user_id     | INTEGER | PRIMARY KEY
-first_name  | VARCHAR |
-last_name   | VARCHAR |
-user_gender | VARCHAR |
-user_level  | VARCHAR |
+| field       | type    | key         |
+| ----------- | ------- | ----------- |
+| user_id     | INTEGER | PRIMARY KEY |
+| first_name  | VARCHAR |             |
+| last_name   | VARCHAR |             |
+| user_gender | VARCHAR |             |
+| user_level  | VARCHAR |             |
 
 `songs`: songs in music database.
 
-field         | type    |   
-------------- | ------- | --
-song_id       | VARCHAR | PRIMARY KEY
-song          | VARCHAR |
-artist_id     | VARCHAR |
-year          | INTEGER |
-song_duration | FLOAT   |
+| field         | type    | key         |
+| ------------- | ------- | ----------- |
+| song_id       | VARCHAR | PRIMARY KEY |
+| song          | VARCHAR |             |
+| artist_id     | VARCHAR |             |
+| year          | INTEGER |             |
+| song_duration | FLOAT   |             |
 
 
 `artists`: artists in music database.
 
-field            | type    |   
----------------- | ------- | --
-artist_id        | VARCHAR | PRIMARY KEY
-artist           | VARCHAR |
-artist_location  | VARCHAR |
-artist_latitude  | FLOAT   |
-artist_longitude | FLOAT   |
+| field            | type    | key         |
+| ---------------- | ------- | ----------- |
+| artist_id        | VARCHAR | PRIMARY KEY |
+| artist           | VARCHAR |             |
+| artist_location  | VARCHAR |             |
+| artist_latitude  | FLOAT   |             |
+| artist_longitude | FLOAT   |             |
 
 
 `time`: timestamps of records in songplays broken down into specific units
 
-field      | type      |   
----------- | --------- | ---
-start_time | TIMESTAMP | PRIMARY KEY
-hour       | INTEGER   |
-day        | INTEGER   |
-week       | INTEGER   |
-month      | INTEGER   |
-year       | INTEGER   |
-weekday    | INTEGER   |
+| field      | type      | key         |
+| ---------- | --------- | ----------- |
+| start_time | TIMESTAMP | PRIMARY KEY |
+| hour       | INTEGER   |             |
+| day        | INTEGER   |             |
+| week       | INTEGER   |             |
+| month      | INTEGER   |             |
+| year       | INTEGER   |             |
+| weekday    | INTEGER   |             |
 
 ## Process
 
