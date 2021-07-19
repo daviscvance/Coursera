@@ -12,7 +12,7 @@ I was tasked with building an ETL pipeline that extracts their data from Amazon 
 `songplays`: records in event data associated with song plays i.e. records with page NextSong.
 
 field         | type              |   
---------------|-------------------|---
+------------- | ----------------- | ---
 songplay_id   | INT IDENTITY(0,1) | PRIMARY KEY
 start_time    | TIMESTAMP         | FOREIGN KEY
 user_id       | INTEGER           | FOREIGN KEY
@@ -30,17 +30,17 @@ NOTE: IDENTITY is the equivalent to SERIAL in Redshift.
 `users`: Sparkify users' metadata.
 
 field       | type    |   
-------------|---------|---
+----------- | ------- | ---
 user_id     | INTEGER | PRIMARY KEY
 first_name  | VARCHAR |
 last_name   | VARCHAR |
 user_gender | VARCHAR |
 user_level  | VARCHAR |
 
-`songs`: songs in music database. 
+`songs`: songs in music database.
 
 field         | type    |   
---------------|---------|---
+------------- | ------- | --
 song_id       | VARCHAR | PRIMARY KEY
 song          | VARCHAR |
 artist_id     | VARCHAR |
@@ -51,7 +51,7 @@ song_duration | FLOAT   |
 `artists`: artists in music database.
 
 field            | type    |   
------------------|---------|---
+---------------- | ------- | --
 artist_id        | VARCHAR | PRIMARY KEY
 artist           | VARCHAR |
 artist_location  | VARCHAR |
@@ -62,7 +62,7 @@ artist_longitude | FLOAT   |
 `time`: timestamps of records in songplays broken down into specific units
 
 field      | type      |   
------------|-----------|---
+---------- | --------- | ---
 start_time | TIMESTAMP | PRIMARY KEY
 hour       | INTEGER   |
 day        | INTEGER   |
