@@ -26,7 +26,7 @@ The tool used for scheduling and orchestration is Apache Airflow.
 
 The pipeline ELT can be seen in the following airflow DAG:
 
-![DAG](./images/sparkify-dag.png)
+![DAG](./images/sparkify_dag.png)
 
 ### Sources
 
