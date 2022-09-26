@@ -14,8 +14,7 @@ class StageToRedshiftOperator(BaseOperator):
                  target_table = '',
                  s3_bucket = '',
                  s3_key = '',
-                 delimiter = ',',
-                 ignore_header = 1,
+                 region = '',
                  format_option = 'auto',
                  *args, **kwargs):
 
@@ -25,8 +24,7 @@ class StageToRedshiftOperator(BaseOperator):
         self.target_table = target_table
         self.s3_bucket = s3_bucket
         self.s3_key = s3_key
-        self.delimiter = delimiter
-        self.ignore_header = ignore_header
+        self.region = region
         self.format_option = format_option
 
     def execute(self, context):
@@ -42,8 +40,7 @@ class StageToRedshiftOperator(BaseOperator):
             FROM '{s3_path}'
             ACCESS_KEY_ID '{aws_credentials.access_key}'
             SECRET_ACCESS_KEY '{aws_credentials.secret_key}'
-            IGNOREHEADER {self.ignore_header}
-            DELIMITER '{self.delimiter}'
+            REGION '{self.region}'
             FORMAT AS JSON '{self.format_option}'
         """
         redshift_hook.run(copy_sql_query)

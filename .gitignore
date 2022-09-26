@@ -1,0 +1,12 @@
+
+Data_Engineering/airflow/dags/__pycache__/dim_subdag.cpython-36.pyc
+Data_Engineering/airflow/dags/__pycache__/sparkify_dag.cpython-36.pyc
+Data_Engineering/airflow/dags/__pycache__/sparkify_dag.cpython-36.pyc
+Data_Engineering/airflow/dags/__pycache__/sparkify_dag.cpython-36.pyc
+*.pyc
+*.pyc
+Data_Engineering/airflow/plugins/helpers/__pycache__/__init__.cpython-36.pyc
+Data_Engineering/airflow/plugins/helpers/__pycache__/sql_queries.cpython-36.pyc
+Data_Engineering/airflow/plugins/operators/__pycache__/data_quality.cpython-36.pyc
+Data_Engineering/airflow/plugins/operators/__pycache__/load_fact.cpython-36.pyc
+Data_Engineering/airflow/plugins/operators/__pycache__/stage_redshift.cpython-36.pyc

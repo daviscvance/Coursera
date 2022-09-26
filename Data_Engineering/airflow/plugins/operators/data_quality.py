@@ -7,25 +7,42 @@ class DataQualityOperator(BaseOperator):
 
     @apply_defaults
     def __init__(self,
-                 redshift_conn_id='',
-                 tables=[],
+                 redshift_conn_id = '',
+                 data_quality_checks = [
+                     {
+                         'target_table': '',
+                         'expected_count': 0,
+                         'condition': True,
+                         'comparison': '',
+                         'test_rationale': ''
+                     }
+                 ],
                  *args, **kwargs):
 
         super(DataQualityOperator, self).__init__(*args, **kwargs)
         self.redshift_conn_id = redshift_conn_id
-        self.tables = tables
+        self.data_quality_checks = data_quality_checks
 
     def execute(self, context):
-        redshift_hook = PostgresHook(postgres_conn_id=self.redshift_conn_id)
+        redshift_hook = PostgresHook(postgres_conn_id = self.redshift_conn_id)
 
-        for tbl in self.tables:
-            self.log.info(f'Checking data quality for table: "{tbl}".')
-            records = redshift_hook.get_records(f'SELECT COUNT(*) FROM {tbl}')
+        for i, dq in enumerate(self.data_quality_checks):
+            target_table = dq.get('target_table')
+            expected_count = dq.get('expected_count')
+            condition = dq.get('condition')
+            comparison = dq.get('comparison')
+            rationale = dq.get('test_rationale')
+            
+            self.log.info(f'Checking data quality (#{i}) for table: "{target_table}" with condition: ' + \
+                          f'"{condition}", Rationale: "{rationale}".')
+            records = redshift_hook.get_records(
+                f'SELECT COUNT(*) {comparison} {expected_count} FROM {target_table} WHERE {condition};')
 
-            if len(records[0]) < 1 or len(records) < 1:
-                raise ValueError(f'Data quality check failed: Table: "{tbl}" has no result.')
-
-            num_records = records[0][0]
-            if num_records < 1:
-                raise ValueError(f'Data quality check failed: Table: "{tbl}" contains no rows.')
-            self.log.info(f'Data quality on table: "{tbl}" check passed with {num_records} records.')
+            if not records[0][0]:
+                raise ValueError(f'Data quality check (#{i}) for table: "{target_table}" with condition: ' + \
+                                 f'"{condition}" FAILED. Expected "{comparison}{expected_count}" rows but ' + \
+                                 f'got "{records[0][0]}". ' + \
+                                 f'Modify test rationale: "{rationale}" to pass test.')
+           
+            self.log.info(f'Data quality check (#{i}) for table: "{target_table}" with condition: ' + \
+                          f'"{condition}" and comparison: "{comparison}{expected_count}" PASSED.')
